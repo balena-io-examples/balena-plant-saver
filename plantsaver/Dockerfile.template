@@ -5,8 +5,9 @@ RUN pip install \
   smbus2 \
   ADS1115 \
   RPi.GPIO \
-  gpiozero
+  gpiozero \
+  balena-sdk
 
-COPY start.py /usr/src
+COPY . /usr/src
 
 CMD python /usr/src/start.py
