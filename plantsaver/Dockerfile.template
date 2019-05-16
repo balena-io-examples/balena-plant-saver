@@ -1,0 +1,12 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3-build
+
+RUN pip install \
+  influxdb \
+  smbus2 \
+  ADS1115 \
+  RPi.GPIO \
+  gpiozero
+
+COPY start.py /usr/src
+
+CMD python /usr/src/start.py

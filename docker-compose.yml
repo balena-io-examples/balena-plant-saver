@@ -1,0 +1,23 @@
+version: '2.1'
+
+volumes:
+    plant-data:
+
+services:
+  grafana:
+    restart: always
+    build: ./grafana
+    ports:
+      - "80:3000"
+    volumes:
+      - 'plant-data:/data'
+    depends_on:
+      - influxdb
+  influxdb:
+    restart: always
+    build: ./influxdb
+    volumes:
+      - 'plant-data:/data'
+  plantsaver:
+    build: ./plantsaver
+    privileged: true
