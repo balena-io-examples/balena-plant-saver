@@ -1,18 +1,16 @@
 FROM balenalib/%%BALENA_MACHINE_NAME%%
 
 COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
+COPY ./entry.sh /usr/src/app/entry.sh
+COPY ./provisioning /usr/src/app/provisioning
 
-COPY ./start.sh /usr/src/app/start.sh
+RUN install_packages apt-transport-https && \
+    echo "deb https://packages.grafana.com/oss/deb stable main" > /etc/apt/sources.list.d/grafana.list && \
+    curl https://packages.grafana.com/gpg.key | apt-key add - && \
+    apt-get update && \
+    install_packages grafana && \
+    chown -R root:grafana /usr/src/app/provisioning
 
-RUN install_packages \
-      fontconfig-config \
-      fonts-dejavu-core \
-      libfontconfig1 \
-      ucf
+RUN chmod +x /usr/src/app/entry.sh
 
-COPY ./download.sh /usr/src/app/download.sh
-RUN chmod +x /usr/src/app/download.sh && /usr/src/app/download.sh "%%BALENA_MACHINE_NAME%%"
-
-RUN dpkg -i /tmp/grafana.deb && rm /tmp/grafana.deb
-
-CMD ["/bin/sh","/usr/src/app/start.sh"]
+CMD ["/usr/src/app/entry.sh"]

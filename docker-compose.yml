@@ -8,9 +8,13 @@ services:
     restart: always
     build: ./grafana
     ports:
-      - "80:3000"
+      - "80"
     volumes:
       - 'plant-data:/data'
+    environment:
+        - 'GF_SERVER_HTTP_PORT=80'
+        - 'GF_PATHS_PROVISIONING=/usr/src/app/provisioning'
+        - 'GF_SESSION_PROVIDER=memory'
     depends_on:
       - influxdb
   influxdb:
