@@ -1,6 +1,7 @@
 import os
 import ADS1115
 import gpiozero
+from hts221 import HTS221
 from influxdb import InfluxDBClient
 from balena import Balena
 
@@ -20,6 +21,9 @@ class PlantSaver:
     led_matrix = 0x46
     led_matrix_type = 'sense-hat'
 
+    # temperature/humidity sensor selection: sense-hat (hts221) or (TBC) DHT11
+    temp_humidity_type = 'sense-hat'
+
     # influx db details
     influx_db_name = 'plant-data'
     influx_db_host = 'influxdb'
@@ -29,8 +33,13 @@ class PlantSaver:
         self.pump = gpiozero.DigitalOutputDevice(self.pump_control_pin)
         self.float_switch = gpiozero.DigitalInputDevice(self.float_switch_pin)
 
+        # TODO only create the database if it doesn't already exist
         self.influx_client = InfluxDBClient(self.influx_db_host, 8086, database=self.influx_db_name)
         self.influx_client.create_database(self.influx_db_name)
+
+        # access the temperature and humidity sensor
+        if self.temp_humidity_type == 'sense-hat':
+            self.temp_humidity_sensor = HTS221()
 
         # set up an instance of the SDK - used for updating device tags
         self.balena = Balena()
@@ -51,7 +60,6 @@ class PlantSaver:
 
     # Store the current instance measurements within InfluxDB
     def write_measurements(self):
-
         measurements = [
             {
                 'measurement': 'plant-data',
@@ -59,7 +67,9 @@ class PlantSaver:
                     'moisture': float(self.moisture_level),
                     'pumping': int(self.pumping),
                     'water_left': int(self.water_left),
-                    'status': int(self.status_code)
+                    'status': int(self.status_code),
+                    'temperature': float(self.temperature),
+                    'humidity': float(self.humidity)
                 }
             }
         ]
@@ -70,6 +80,7 @@ class PlantSaver:
     def update_sensors(self):
         self.read_moisture()
         self.read_float_switch()
+        self.read_temperature_humidity()
 
     # Take a reading from the moisture sensor,
     # then convert this into a percentage based on the defined minimum and maximum
@@ -81,6 +92,11 @@ class PlantSaver:
     # Take a reading from the float switch and update the vars
     def read_float_switch(self):
         self.water_left = bool(self.float_switch.value)
+
+    # Get readings from the chosen temperature sensor
+    def read_temperature_humidity(self):
+        self.temperature = self.temp_humidity_sensor.get_temperature()
+        self.humidity = self.temp_humidity_sensor.get_humidity()
 
     # Generate a status string so we have something to show in the logs
     # We also generate a status code which is used in the front end UI

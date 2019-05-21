@@ -1,5 +1,9 @@
 import time
 from plantsaver import PlantSaver
+from ledmatrix import LedMatrix
+
+display = LedMatrix()
+display.clear()
 
 plantsaver = PlantSaver()
 loop_count = 6 # update the tags on first iteration
