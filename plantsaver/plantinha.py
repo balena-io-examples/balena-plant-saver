@@ -7,11 +7,15 @@ from balena import Balena
 
 class PlantSaver:
 
+    # influx db details
+    influx_db_name = 'plant-data'
+    influx_db_host = 'influxdb'
+
     def __init__(self):
 
         # Variables
         self.dht_sensor = Adafruit_DHT.DHT22
-        self.dht_pin = int(self.set_variable("dht_pin", 8))
+        self.dht_pin = int(self.set_variable("dht_pin", 11))
         self.max_value = float(self.set_variable("max_value", 2.77)) 
         self.min_value = float(self.set_variable("min_value", 1.46)) 
         self.target_soil_moisture = 50 
@@ -25,9 +29,13 @@ class PlantSaver:
         self.temperature = 0
         self.humidity = 0
 
-        # TODO only create the database if it doesn't already exist
+        # TO-DO only create the database if it doesn't already exist
         self.influx_client = InfluxDBClient(self.influx_db_host, 8086, database=self.influx_db_name)
         self.influx_client.create_database(self.influx_db_name)
+
+        # set up an instance of the SDK - used for updating device tags
+        self.balena = Balena()
+        self.balena.auth.login_with_token(os.environ['BALENA_API_KEY'])
 
     # Checks if there is an environment variable set, otherwise save the default value
     def set_variable(self, name, default_value):
@@ -46,7 +54,11 @@ class PlantSaver:
     def update_sensors(self):
         self.read_moisture()
         self.read_temperature_humidity()
-        # self.read_float_switch()
+        self.read_float_switch()
+
+    # Take a reading from the float switch and update the vars
+    def read_float_switch(self):
+        self.water_left = bool(automationhat.input.one.read())
     
    # Generate a status string so we have something to show in the logs
     # We also generate a status code which is used in the front end UI
@@ -61,6 +73,13 @@ class PlantSaver:
             status = 'OK'
             self.status_code = 3
 
+    # Update the device tags with the moisture level and the status on balenaCloud
+    # This means that you'll be able to see the status of the plant from the dashboard
+    def update_device_tags(self):
+        self.balena.models.tag.device.set(os.environ['BALENA_DEVICE_UUID'], 'Status', str(self.status))
+        moisture_string = str(round(self.moisture_level,2))+'%'
+        self.balena.models.tag.device.set(os.environ['BALENA_DEVICE_UUID'], 'Moisture', moisture_string)
+
     # Store the current instance measurements within InfluxDB
     def write_measurements(self):
         measurements = [
@@ -69,7 +88,7 @@ class PlantSaver:
                 'fields': {
                     'moisture': float(self.moisture_level),
                     'pumping': int(self.pumping),
-                    # 'water_left': int(self.water_left),
+                    'water_left': int(self.water_left),
                     'status': int(self.status_code),
                     'temperature': float(self.temperature),
                     'humidity': float(self.humidity)
