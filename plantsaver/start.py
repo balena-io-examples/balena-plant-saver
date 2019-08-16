@@ -1,20 +1,34 @@
 import time
 from plantinha import PlantSaver
 
+
 plantsaver = PlantSaver()
 loop_count = 6 # update the tags on first iteration
+pump = False
+pump_count = 12
 
 while True:
     plantsaver.tick()
 
     print("====================================================")
-    print("Moisture: {:.1f}%".format(plantsaver.moisture_level))
+    print("Moisture! {:.1f}%".format(plantsaver.moisture_level))
     print("Temperature: {:.1f}C".format(plantsaver.temperature))
     print("Humidity: {:.1f}%".format(plantsaver.humidity))
     print("Status: "+plantsaver.status)
-    print("Water level: "+ str(plantsaver.water_left))
+    print("Water level: "+str(plantsaver.water_left))
+    print("Pump Cont: "+str(pump_count))
+    print("Status code:"+plantsaver.status)
 
-    # update this every minute
+    # Check if water level is too dry and that the pump wasn't on for the past two minutes
+    if plantsaver.status_code == 1 and pump_count >= 12:
+        print("Turning pump ON for 10 seconds.")
+        plantsaver.pump_water(True)
+        pump_count = 0
+    else: 
+        plantsaver.pump_water(False)
+        pump_count = pump_count + 1
+
+    # Update device tags every minute
     if loop_count == 6:
         plantsaver.update_device_tags()
         loop_count = 0

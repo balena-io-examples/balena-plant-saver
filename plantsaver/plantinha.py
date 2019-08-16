@@ -18,8 +18,8 @@ class PlantSaver:
         self.dht_pin = int(self.set_variable("dht_pin", 11))
         self.max_value = float(self.set_variable("max_value", 2.77)) 
         self.min_value = float(self.set_variable("min_value", 1.46)) 
-        self.target_soil_moisture = 50 
-        self.target_soil_threshold = 10 
+        self.target_soil_moisture = 60 
+        self.target_soil_threshold = 15
 
         # Initial status
         self.status = 'Starting'
@@ -59,19 +59,6 @@ class PlantSaver:
     # Take a reading from the float switch and update the vars
     def read_float_switch(self):
         self.water_left = bool(automationhat.input.one.read())
-    
-   # Generate a status string so we have something to show in the logs
-    # We also generate a status code which is used in the front end UI
-    def update_status(self):
-        if self.moisture_level < self.target_soil_moisture-self.target_soil_threshold:
-            status = 'Too dry'
-            self.status_code = 1
-        elif self.moisture_level > self.target_soil_moisture+self.target_soil_threshold:
-            status = 'Too wet'
-            self.status_code = 2
-        else:
-            status = 'OK'
-            self.status_code = 3
 
     # Update the device tags with the moisture level and the status on balenaCloud
     # This means that you'll be able to see the status of the plant from the dashboard
@@ -111,13 +98,26 @@ class PlantSaver:
             status = 'OK'
             self.status_code = 3
 
-        if self.pumping == True:
-            status = status + ', pump running'
+        if self.pumping:
+            status = status + ', pump on'
+        else: 
+            status = status + ', pump off'
 
-        if self.water_left == False:
+        if not self.water_left:
             status = status + ', water low'
+        else:
+            status = status + ', water normal'
 
         self.status = status
+
+    # Pump water
+    def pump_water(self, action):
+        if action == True:
+            automationhat.relay.one.on()
+            self.pumping = True
+        else:
+            automationhat.relay.one.off()
+            self.pumping = False
 
     # Refresh the relevant things - designed to be run once every 10 seconds
     def tick(self):
