@@ -5,7 +5,8 @@ from plantinha import PlantSaver
 plantsaver = PlantSaver()
 loop_count = 6 # update the tags on first iteration
 pump = False
-pump_count = 12
+pump_count = 1
+pump_on_count = 0
 
 while True:
     plantsaver.tick()
@@ -19,14 +20,18 @@ while True:
     print("Pump Cont: "+str(pump_count))
     print("Status code:"+plantsaver.status)
 
-    # Check if water level is too dry and that the pump wasn't on for the past two minutes
-    if plantsaver.status_code == 1 and pump_count >= 12:
+    # Check if water level is too dry and that the pump wasn't on for the past minute
+    if plantsaver.status_code == 1 and pump_count >= 6:
         print("Turning pump ON for 10 seconds.")
         plantsaver.pump_water(True)
         pump_count = 0
-    else: 
-        plantsaver.pump_water(False)
-        pump_count = pump_count + 1
+    else:
+        if pump_on_count < 4:
+            pump_on_count = pump_on_count + 1
+        else:
+            pump_on_count = 0
+            plantsaver.pump_water(False)
+            pump_count = pump_count + 1
 
     # Update device tags every minute
     if loop_count == 6:
