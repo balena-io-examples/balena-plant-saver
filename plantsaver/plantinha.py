@@ -58,7 +58,7 @@ class PlantSaver:
 
     # Take a reading from the float switch and update the vars
     def read_float_switch(self):
-        self.water_left = bool(automationhat.input.one.read())
+        self.water_left = not bool(automationhat.input.one.read())
 
     # Update the device tags with the moisture level and the status on balenaCloud
     # This means that you'll be able to see the status of the plant from the dashboard

@@ -26,7 +26,7 @@ while True:
         plantsaver.pump_water(True)
         pump_count = 0
     else:
-        if pump_on_count < 4:
+        if pump_on_count < 2:
             pump_on_count = pump_on_count + 1
         else:
             pump_on_count = 0
