@@ -1,12 +1,20 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3-build
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-build
 
-RUN pip install \
+RUN install_packages python3-smbus wget unzip
+
+RUN pip3 install --upgrade \
+  pip \
+  setuptools \
+  wheel\
   influxdb \
   smbus2 \
-  ADS1115 \
+  # ADS1115 \
   RPi.GPIO \
-  gpiozero \
-  balena-sdk
+  # gpiozero \
+  balena-sdk \ 
+  automationhat
+
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org Adafruit_DHT==1.4.0 --install-option="--force-pi2"
 
 COPY . /usr/src
 

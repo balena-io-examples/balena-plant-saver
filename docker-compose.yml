@@ -25,5 +25,6 @@ services:
   plantsaver:
     build: ./plantsaver
     privileged: true
+    restart: always
     labels:
       io.balena.features.balena-api: '1'
