@@ -8,9 +8,7 @@ RUN pip3 install --upgrade \
   wheel\
   influxdb \
   smbus2 \
-  # ADS1115 \
   RPi.GPIO \
-  # gpiozero \
   balena-sdk \ 
   automationhat
 

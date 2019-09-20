@@ -14,20 +14,20 @@ class PlantSaver:
     def __init__(self):
 
         # Variables
-        self.dht_sensor = Adafruit_DHT.DHT22
-        self.dht_pin = int(self.set_variable("dht_pin", 11))
-        self.max_value = float(self.set_variable("max_value", 2.77)) 
-        self.min_value = float(self.set_variable("min_value", 1.46)) 
-        self.target_soil_moisture = 60 
-        self.target_soil_threshold = 15
+        self.dht_sensor             = Adafruit_DHT.DHT22
+        self.dht_pin                = int(self.set_variable("dht_pin", 11))
+        self.max_value              = float(self.set_variable("max_value", 2.77)) 
+        self.min_value              = float(self.set_variable("min_value", 1.46)) 
+        self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60)) 
+        self.target_soil_threshold  = int(self.set_variable("target_soil_threshold", 15))
 
         # Initial status
-        self.status = 'Starting'
-        self.status_code = 0
+        self.status         = 'Starting'
+        self.status_code    = 0
         self.moisture_level = None
-        self.pumping = False
-        self.temperature = 0
-        self.humidity = 0
+        self.pumping        = False
+        self.temperature    = 0
+        self.humidity       = 0
 
         # TO-DO only create the database if it doesn't already exist
         self.influx_client = InfluxDBClient(self.influx_db_host, 8086, database=self.influx_db_name)
