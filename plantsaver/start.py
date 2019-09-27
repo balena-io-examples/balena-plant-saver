@@ -10,9 +10,8 @@ pump_on_count = 0
 
 while True:
     plantsaver.tick()
-
     print("====================================================")
-    print("Moisture! {:.1f}%".format(plantsaver.moisture_level))
+    print("Moisture {:.1f}%".format(plantsaver.moisture_level))
     print("Temperature: {:.1f}C".format(plantsaver.temperature))
     print("Humidity: {:.1f}%".format(plantsaver.humidity))
     print("Status: "+plantsaver.status)
@@ -20,8 +19,8 @@ while True:
     print("Pump Cont: "+str(pump_count))
     print("Status code:"+plantsaver.status)
 
-    # Check if water level is too dry and that the pump wasn't on for the past minute
-    if plantsaver.status_code == 1 and pump_count >= 6:
+    # Check if water level is too dry and that the pump wasn't on for the past 15 minutes
+    if plantsaver.status_code == 1 and pump_count >= plantsaver.pump_delay * 6:
         print("Turning pump ON for 10 seconds.")
         plantsaver.pump_water(True)
         pump_count = 0

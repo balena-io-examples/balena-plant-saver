@@ -20,6 +20,7 @@ class PlantSaver:
         self.min_value              = float(self.set_variable("min_value", 1.46)) 
         self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60)) 
         self.target_soil_threshold  = int(self.set_variable("target_soil_threshold", 15))
+        self.pump_delay             = int(self.set_variable("pump_delay", 15))
 
         # Initial status
         self.status         = 'Starting'
