@@ -11,6 +11,7 @@ pump_on_count = 0
 while True:
     plantsaver.tick()
     print("====================================================")
+    print("Turbidity {:.1f}".format(plantsaver.turbidity_level))
     print("Moisture {:.1f}%".format(plantsaver.moisture_level))
     print("Temperature: {:.1f}C".format(plantsaver.temperature))
     print("Humidity: {:.1f}%".format(plantsaver.humidity))
