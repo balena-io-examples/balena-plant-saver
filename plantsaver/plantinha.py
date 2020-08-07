@@ -20,12 +20,11 @@ class PlantSaver:
         self.min_value              = float(self.set_variable("min_value", 1.46)) 
         self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60))
         self.target_soil_threshold  = int(self.set_variable("target_soil_threshold", 15))
-        self.pump_delay             = int(self.set_variable("pump_delay", 15))
+        self.pump_delay             = int(self.set_variable("pump_delay", 5))
 
         # Initial status
         self.status         = 'Starting'
         self.status_code    = 0
-        # self.turbidity_level= None
         self.moisture_level = None
         self.pumping        = False
         self.temperature    = 0
@@ -46,10 +45,7 @@ class PlantSaver:
         else: 
             self.value = default_value
         return self.value
-
-    #def read_turbidity(self):
-    #    self.turbidity_level= (automationhat.analog.two.read()*5.0/1024.0)
-
+        
     def read_moisture(self):
         self.moisture_level= 100-(automationhat.analog.one.read()-self.min_value)/((self.max_value-self.min_value)/100)
 
@@ -57,7 +53,6 @@ class PlantSaver:
         self.humidity, self.temperature = Adafruit_DHT.read_retry(self.dht_sensor, self.dht_pin)
     
     def update_sensors(self):
-    #    self.read_turbidity()
         self.read_moisture()
         self.read_temperature_humidity()
         self.read_float_switch()
@@ -79,7 +74,6 @@ class PlantSaver:
             {
                 'measurement': 'plant-data',
                 'fields': {
-        #            'turbidity': float(self.turbidity_level),
                     'moisture': float(self.moisture_level),
                     'pumping': int(self.pumping),
                     'water_left': int(self.water_left),
