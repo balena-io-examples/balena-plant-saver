@@ -28,7 +28,7 @@ Here's the software that you'll need to get going:
 * [balenaEtcher](https://www.balena.io/etcher/) to burn OS images to SD cards
 * (optional) [balenaCLI](https://www.balena.io/docs/reference/balena-cli/) if you want to hack on this project, push code locally, etc.
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/01b-plant-water.jpg)
+![](/img/01b-plant-water.jpg)
 
 Oh yeah... you'll want a plant to test with. We recommend something resilient that you can over or underwater as you test. A bamboo works great. And the most important part: *water*.
 
