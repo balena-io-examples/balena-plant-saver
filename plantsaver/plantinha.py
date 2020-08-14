@@ -18,7 +18,7 @@ class PlantSaver:
         self.dht_pin                = int(self.set_variable("dht_pin", 11))
         self.max_value              = float(self.set_variable("max_value", 2.77)) 
         self.min_value              = float(self.set_variable("min_value", 1.46)) 
-        self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60)) 
+        self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60))
         self.target_soil_threshold  = int(self.set_variable("target_soil_threshold", 15))
         self.pump_delay             = int(self.set_variable("pump_delay", 15))
 
@@ -45,7 +45,7 @@ class PlantSaver:
         else: 
             self.value = default_value
         return self.value
-
+        
     def read_moisture(self):
         self.moisture_level= 100-(automationhat.analog.one.read()-self.min_value)/((self.max_value-self.min_value)/100)
 
