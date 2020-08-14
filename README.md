@@ -1,9 +1,8 @@
 # Balena Plant Saver
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img01.jpg?raw=true)
-
 This is a Raspberry Pi balenaCloud starter project to help you water your precious plants. See temperature, humidity, and soil moisture levels. Set watering thresholds and timings to automate the watering of your plants.
 
+![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img01.jpg?raw=true)
 ![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img03.png?raw=true)
 
 Access your plant's dashboard from anywhere in the world using balenaCloud. Add new plant monitors quickly and easily using the same application code on different devices. Use your imagination (and some extra parts) and turn balenaPlant into a balenaGarden. :)
@@ -31,8 +30,6 @@ Here's the software that you'll need to get going:
 ![](/img/01b-plant-water.jpg)
 
 Oh yeah... you'll want a plant to test with. We recommend something resilient that you can over or underwater as you test. A bamboo works great. And the most important part: *water*.
-
----
 
 ## Set up the hardware
 
@@ -80,8 +77,6 @@ At this point, you can set your plant watering test up. Add the moisture sensor 
 
 The original project creators built 3D-printed parts to hold various parts or to enclose the electronics for the project. Check out this [forum thread](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21) to learn more.
 
----
-
 ## Add and deploy the application
 
 ### Deploy with balena
@@ -107,8 +102,6 @@ Once that step is complete, add a new device by clicking `Add device` and select
 ![](https://www.balena.io/blog/content/images/2020/07/etcher-1.png)
 
 Insert the SD card into your computer, boot up Etcher and flash the downloaded balenaOS to your card. Insert the card into your device and wait for it to power on and show up on your dashboard within your app. Once the device downloads all the software, the application should be ready to use.
-
----
 
 ## Using balenaPlant
 
@@ -139,10 +132,18 @@ Other device variables to change include:
 | target_soil_threshold | Sets threshold of moisture past target     | 15            |
 | pump_delay            | Adds time between how often pump code runs | 15            |
 
-### Experiment and explore
+*NOTE: When you change a device variable,it will reset the device.*
+
+## Experiment and explore
 
 ![](/img/08-basil-test.jpg)
 
 Once you test a few things here and there, try other kinds of plants, adjust the soil moisture targets, and take one chore off your to-do list.
+
+### Build a fleet of balenaPlant devices
+
+Why automate the watering of one plant when you could grow and nurture many more? What if you upgrade the pump? What if you add LED grow lights?? The possibilities are endless.
+
+### Additional resources
 
 Check out this [livestream build](https://www.youtube.com/watch?v=r0ZR6COwdRo) (uses the balenaCLI method) or [visit our Forums](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21) for more information.
