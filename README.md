@@ -42,41 +42,41 @@ After preparing the Automation pHAT (soldering terminals on, etc.), connect it t
 
 ### Solder on DHT22 sensor
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/02-dht22.jpg)
+![](/img/02-dht22.jpg)
 
 Connect the power and ground to the 3.3V pins. Connect the data pin to the `SCLK` pin, which is GPIO pin 11 (you'll see this referenced in the plant watering code).
 
 ### Add capacitive moisture sensor
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/03-soil-moisture-sensor.jpg)
+![](/img/03-soil-moisture-sensor.jpg)
 
 As seen on this [balenaForum post](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21), it's helpful to paint or coat the exposed electronic components of this sensor with outdoor paint or nail polish. Power the soil moisture sensor using the 5V terminals on the Automation pHAT, and insert the data wire into the `ADC 1` terminal (since the sensor is giving us an analog signal to convert).
 
 ### Add the float switch
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/04-float-switch.jpg)
+![](/img/04-float-switch.jpg)
 
 Power the float switch using the 5V terminal and connect the other wire into the `INPUT 1` terminal.
 
 ### Add the water pump
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/05-pump-relay.jpg)
+![](/img/05-pump-relay.jpg)
 
 Power the peristaltic pump using the 5V terminal on the Automation pHAT. Connect the pump's ground wire to the `NO` (Normally Open) terminal.
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/06-pump-replay-close.jpg)
+![](/img/06-pump-replay-close.jpg)
 
 Close the circuit for the water pump by using a wire to connect the `COM` terminal to `GND`.
 
 ### Set everything up
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/07-test-setup.jpg)
+![](/img/07-test-setup.jpg)
 
 At this point, you can set your plant watering test up. Add the moisture sensor to the plant's soil (or lack thereof in the case of this bamboo). Add the pumping end of the water pump into your water source and the dousing end into the plant's soil. NOTE: It's not clear on some pumps as to which port does what-- once you test, mark or tape a line to help tell which is which.
 
 #### Build or 3D print additional accessories
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img02.jpg?raw=true)
+![](/img/img02.jpg?raw=true)
 
 The original project creators built 3D-printed parts to hold various parts or to enclose the electronics for the project. Check out this [forum thread](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21) to learn more.
 
@@ -112,11 +112,11 @@ Insert the SD card into your computer, boot up Etcher and flash the downloaded b
 
 ## Using balenaPlant
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/device-url.jpg)
+![](/img/device-url.jpg)
 
 Now it's time to put everything to the test. Access your device within the application. You'll see its details including tags that show moisture levels and whether or not the water level is high or low. You'll also see a local or public URL option for the device. Use either of these to access the Grafana dashboard for the sensors.
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/grafana-dash.jpg)
+![](/img/grafana-dash.jpg)
 
 Clicking on either URL takes you to the Grafana dashboard for the setup. From here you can see a timeseries graph of temperature and humidity, water level, and recorded pump activity. For advanced Grafana users, feel free to experiment with adding alerts for each chart (we won't cover that in this readme though).
 
@@ -127,9 +127,9 @@ By default, balenaPlant checks the water level of the plant approximately every 
 * running the pump infrequently prevents the motor from burning out
 * watering with long intervals between each session allows soil or growing material to absorb water for a more accurate reading
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/device-var.jpg)
+![](/img/device-var.jpg)
 
-You can change the pump delay time by changing the `Device variable` (located on the left-side menu in balenaCloud). Set `pump_delay` to a higher number for a longer wait time and a lower one for a shorter wait between watering. If properly set, you'll never overwater because even if the elapsed delay goes by, the pump won't start if the moisure level is too high.
+You can change the pump delay time by changing the `Device variable` (located on the left-side menu in balenaCloud). Set `pump_delay` to a higher number for a longer wait time (more pump cycle counts) and a lower one for a shorter wait between watering. If properly set, you'll never overwater because even if the elapsed delay goes by, the pump won't start if the moisure level meets your requirements.
 
 Other device variables to change include:
 
@@ -141,7 +141,7 @@ Other device variables to change include:
 
 ### Experiment and explore
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/08-basil-test.jpg)
+![](/img/08-basil-test.jpg)
 
 Once you test a few things here and there, try other kinds of plants, adjust the soil moisture targets, and take one chore off your to-do list.
 
