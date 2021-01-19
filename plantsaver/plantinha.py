@@ -2,16 +2,15 @@ import time
 import os
 import automationhat
 import Adafruit_DHT
-from influxdb import InfluxDBClient
 from balena import Balena
+import json
+import paho.mqtt.client as mqtt
 
 class PlantSaver:
 
-    # influx db details
-    influx_db_name = 'plant-data'
-    influx_db_host = 'influxdb'
-
     def __init__(self):
+
+        self.client          = mqtt.Client("1")
 
         # Variables
         self.dht_sensor             = Adafruit_DHT.DHT22
@@ -29,10 +28,6 @@ class PlantSaver:
         self.pumping        = False
         self.temperature    = 0
         self.humidity       = 0
-
-        # TO-DO only create the database if it doesn't already exist
-        self.influx_client = InfluxDBClient(self.influx_db_host, 8086, database=self.influx_db_name)
-        self.influx_client.create_database(self.influx_db_name)
 
         # set up an instance of the SDK - used for updating device tags
         self.balena = Balena()
@@ -70,6 +65,9 @@ class PlantSaver:
 
     # Store the current instance measurements within InfluxDB
     def write_measurements(self):
+        
+        self.client.connect("localhost")
+
         measurements = [
             {
                 'measurement': 'plant-data',
@@ -83,8 +81,10 @@ class PlantSaver:
                 }
             }
         ]
-
-        self.influx_client.write_points(measurements)
+    msgInfo = self.client.publish("sensors", json.dumps(measurements))
+    if False == msgInfo.is_published():
+        msgInfo.wait_for_publish()
+    client.disconnect()
 
     # Generate a status string so we have something to show in the logs
     # We also generate a status code which is used in the front end UI

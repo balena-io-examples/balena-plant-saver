@@ -2,24 +2,19 @@ version: '2.1'
 
 volumes:
     plant-data:
+    dashboard-data:
 
 services:
-  grafana:
+  dashboard:
+    image: balenablocks/dashboard:raspberrypi3
     restart: always
-    build: ./grafana
-    ports:
-      - "80"
     volumes:
-      - 'plant-data:/data'
-    environment:
-        - 'GF_SERVER_HTTP_PORT=80'
-        - 'GF_PATHS_PROVISIONING=/usr/src/app/provisioning'
-        - 'GF_SESSION_PROVIDER=memory'
-    depends_on:
-      - influxdb
+        - 'dashboard-data:/data'
+    ports:
+        - '80'
   influxdb:
     restart: always
-    build: ./influxdb
+    image: influxdb@sha256:b099bdd1f4306689fd11c02f83b3de7fc11eccd8debf5f345e9be11d0a7cd7dc
     volumes:
       - 'plant-data:/data'
   plantsaver:
@@ -28,3 +23,14 @@ services:
     restart: always
     labels:
       io.balena.features.balena-api: '1'
+  connector:
+    image: balenablocks/connector:raspberrypi3
+    restart: always
+    labels:
+      io.balena.features.balena-api: '1' # necessary to discover services
+    privileged: true # necessary to change container hostname
+  mqtt:
+    image: arm32v6/eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    restart: always
