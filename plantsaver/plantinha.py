@@ -10,7 +10,7 @@ class PlantSaver:
 
     def __init__(self):
 
-        self.client          = mqtt.Client("1")
+        self.client                 = mqtt.Client("1")
 
         # Variables
         self.dht_sensor             = Adafruit_DHT.DHT22
@@ -81,10 +81,10 @@ class PlantSaver:
                 }
             }
         ]
-    msgInfo = self.client.publish("sensors", json.dumps(measurements))
-    if False == msgInfo.is_published():
-        msgInfo.wait_for_publish()
-    client.disconnect()
+        msgInfo = self.client.publish("sensors", json.dumps(measurements))
+        if False == msgInfo.is_published():
+            msgInfo.wait_for_publish()
+        self.client.disconnect()
 
     # Generate a status string so we have something to show in the logs
     # We also generate a status code which is used in the front end UI
