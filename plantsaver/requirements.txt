@@ -1,0 +1,8 @@
+pip 
+setuptools 
+wheel
+smbus2 
+RPi.GPIO 
+balena-sdk 
+automationhat 
+paho-mqtt

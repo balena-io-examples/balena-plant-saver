@@ -1,19 +1,20 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-build
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-build as build
 
-RUN install_packages python3-smbus wget unzip
+RUN install_packages python3-smbus
 
-RUN pip3 install --upgrade \
-  pip \
-  setuptools \
-  wheel\
-  smbus2 \
-  RPi.GPIO \
-  balena-sdk \ 
-  automationhat \
-  paho-mqtt
+COPY requirements.txt /requirements.txt
+ENV PATH=/root/.local/bin:$PATH
+RUN pip3 install --user -r /requirements.txt
 
-RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org Adafruit_DHT==1.4.0 --install-option="--force-pi2"
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org Adafruit_DHT==1.4.0 --install-option="--force-pi2" --user
 
-COPY . /usr/src
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine-python:3-run 
+COPY --from=build /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+
+WORKDIR /usr/src
+
+COPY ./*.py /usr/src/
+
 
 CMD python /usr/src/start.py
