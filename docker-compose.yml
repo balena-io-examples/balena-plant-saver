@@ -21,6 +21,7 @@ services:
     build: ./plantsaver
     privileged: true
     restart: always
+    network_mode: host
     labels:
       io.balena.features.balena-api: '1'
   connector:
