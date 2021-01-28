@@ -1,5 +1,7 @@
 # Balena Plant Saver
 
+![](/img/balenaPlant_hero)
+
 This is a Raspberry Pi balenaCloud starter project to help you water your precious plants. See temperature, humidity, and soil moisture levels. Set watering thresholds and timings to automate the watering of your plants.
 
 ![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img01.jpg?raw=true)
@@ -9,11 +11,11 @@ Access your plant's dashboard from anywhere in the world using balenaCloud. Add 
 ![](/img/setup.png)
 
 ## Hardware you'll need
-This project uses the Pimironi Automation pHAT to make things a bit more user-friendly. Here's the list of materials:
+This project uses the Pimoroni Automation HAT to make things a bit more user-friendly. Here's the list of materials:
 
 * Raspberry Pi ZeroWH/3B/4 (that's what we've tested so far)
 * A 32GB+ SD car
-* Pimironi Automation pHAT
+* Pimoroni Automation HAT (a discontinued Automation pHAT should work as well)
 * DHT22 temperature and humidity sensor
 * Capacitive soil moisture sensor
 * Float switch
@@ -25,10 +27,6 @@ Here's the software that you'll need to get going:
 * a free [balenaCloud](https://dashboard.balena-cloud.com/signup) account (first ten devices are fully featured and free)
 * [balenaEtcher](https://www.balena.io/etcher/) to burn OS images to SD cards
 * (optional) [balenaCLI](https://www.balena.io/docs/reference/balena-cli/) if you want to hack on this project, push code locally, etc.
-
-![](/img/setup.png)
-
-Oh yeah... you'll want a plant to test with. We recommend something resilient that you can over or underwater as you test. A bamboo works great. And the most important part: *water*.
 
 ## Set up the hardware
 
@@ -70,8 +68,6 @@ Close the circuit for the water pump by using a wire to connect the `COM` termin
 
 After preparing the Automation pHAT (soldering terminals on, etc.), connect it to the Raspberry Pi via GPIO pins.
 
-![](/img/07-test-setup.jpg)
-
 At this point, you can set your plant watering test up. Add the moisture sensor to the plant's soil (or lack thereof in the case of this bamboo). Add the pumping end of the water pump into your water source and the dousing end into the plant's soil. NOTE: It's not clear on some pumps as to which port does what-- once you test, mark or tape a line to help tell which is which.
 
 #### Build or 3D print additional accessories
@@ -88,42 +84,22 @@ Once you're logged into your balenaCloud account (remember: first ten devices ar
 
 [![Deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy)
 
-![](https://www.balena.io/blog/content/images/2020/07/deploy-default.png)
-
 Name your application, select your device type, and click `Create and deploy`. You'll be taken to your dashboard and our builders will start creating your application in the background.
 
-![](https://www.balena.io/blog/content/images/2020/06/build-indicator.png)
-
 ### Add a device
-
-![](https://www.balena.io/blog/content/images/2020/06/os-download.png)
 
 Once that step is complete, add a new device by clicking `Add device` and selecting your device type. If you plan on using Wi-Fi, add your credentials here. Otherwise, proceed with an Ethernet cable connected to your internet setup. Complete the modal and your OS will download.
 
 ### Flash the OS onto your SD card
 
-![](https://www.balena.io/blog/content/images/2020/07/etcher-1.png)
-
 Insert the SD card into your computer, boot up Etcher and flash the downloaded balenaOS to your card. Insert the card into your device and wait for it to power on and show up on your dashboard within your app. Once the device downloads all the software, the application should be ready to use.
 
-## Using balenaPlant
-
-![](/img/device-url.jpg)
-
-Now it's time to put everything to the test. Access your device within the application. You'll see its details including tags that show moisture levels and whether or not the water level is high or low. You'll also see a local or public URL option for the device. Use either of these to access the Grafana dashboard for the sensors.
-
-![](/img/grafana-dash.jpg)
-
-Clicking on either URL takes you to the Grafana dashboard for the setup. From here you can see a timeseries graph of temperature and humidity, water level, and recorded pump activity. For advanced Grafana users, feel free to experiment with adding alerts for each chart (we won't cover that in this readme though).
-
-### Automated watering
+## Automated watering
 
 By default, balenaPlant checks the water level of the plant approximately every 15 minutes. This is a reasonable time for a few reasons:
 
 * running the pump infrequently prevents the motor from burning out
 * watering with long intervals between each session allows soil or growing material to absorb water for a more accurate reading
-
-![](/img/device-var.jpg)
 
 You can change the pump delay time by changing the `Device variable` (located on the left-side menu in balenaCloud). Set `pump_delay` to a higher number for a longer wait time (more pump cycle counts) and a lower one for a shorter wait between watering. If properly set, you'll never overwater because even if the elapsed delay goes by, the pump won't start if the moisure level meets your requirements.
 
@@ -138,8 +114,6 @@ Other device variables to change include:
 *NOTE: When you change a device variable,it will reset the device.*
 
 ## Experiment and explore
-
-![](/img/08-basil-test.jpg)
 
 Once you test a few things here and there, try other kinds of plants, adjust the soil moisture targets, and take one chore off your to-do list.
 
