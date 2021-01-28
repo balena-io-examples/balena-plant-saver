@@ -3,11 +3,10 @@
 This is a Raspberry Pi balenaCloud starter project to help you water your precious plants. See temperature, humidity, and soil moisture levels. Set watering thresholds and timings to automate the watering of your plants.
 
 ![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img01.jpg?raw=true)
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/img03.png?raw=true)
 
 Access your plant's dashboard from anywhere in the world using balenaCloud. Add new plant monitors quickly and easily using the same application code on different devices. Use your imagination (and some extra parts) and turn balenaPlant into a balenaGarden. :)
 
-![](https://github.com/balena-io-playground/balena-plant-saver/blob/master/img/01-all-parts.jpg)
+![](/img/setup.png)
 
 ## Hardware you'll need
 This project uses the Pimironi Automation pHAT to make things a bit more user-friendly. Here's the list of materials:
@@ -27,45 +26,49 @@ Here's the software that you'll need to get going:
 * [balenaEtcher](https://www.balena.io/etcher/) to burn OS images to SD cards
 * (optional) [balenaCLI](https://www.balena.io/docs/reference/balena-cli/) if you want to hack on this project, push code locally, etc.
 
-![](/img/01b-plant-water.jpg)
+![](/img/setup.png)
 
 Oh yeah... you'll want a plant to test with. We recommend something resilient that you can over or underwater as you test. A bamboo works great. And the most important part: *water*.
 
 ## Set up the hardware
 
-### Connect the Automation pHAT to the Raspberry Pi
+![](/img/wiring-balenaplant.png)
 
-After preparing the Automation pHAT (soldering terminals on, etc.), connect it to the Raspberry Pi via GPIO pins.
+This wiring diagram covers a build that uses the Pimoroni Automation HAT. Wiring will differ if using other hardware.
 
 ### Solder on DHT22 sensor
 
-![](/img/02-dht22.jpg)
+![](/img/dht22.png)
 
 Connect the power and ground to the 3.3V pins. Connect the data pin to the `SCLK` pin, which is GPIO pin 11 (you'll see this referenced in the plant watering code).
 
 ### Add capacitive moisture sensor
 
-![](/img/03-soil-moisture-sensor.jpg)
+![](/img/moisture-sensor.png)
 
 As seen on this [balenaForum post](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21), it's helpful to paint or coat the exposed electronic components of this sensor with outdoor paint or nail polish. Power the soil moisture sensor using the 5V terminals on the Automation pHAT, and insert the data wire into the `ADC 1` terminal (since the sensor is giving us an analog signal to convert).
 
-### Add the float switch
-
-![](/img/04-float-switch.jpg)
-
-Power the float switch using the 5V terminal and connect the other wire into the `INPUT 1` terminal.
-
 ### Add the water pump
 
-![](/img/05-pump-relay.jpg)
+![](/img/water-pump.png)
 
 Power the peristaltic pump using the 5V terminal on the Automation pHAT. Connect the pump's ground wire to the `NO` (Normally Open) terminal.
 
-![](/img/06-pump-replay-close.jpg)
+### Add the float switch
+
+![](/img/float-switch.png)
+
+Power the float switch using the 5V terminal and connect the other wire into the `INPUT 1` terminal.
+
+### Close the loop
+
+![](/img/pump-relay-close.png)
 
 Close the circuit for the water pump by using a wire to connect the `COM` terminal to `GND`.
 
 ### Set everything up
+
+After preparing the Automation pHAT (soldering terminals on, etc.), connect it to the Raspberry Pi via GPIO pins.
 
 ![](/img/07-test-setup.jpg)
 
@@ -83,7 +86,7 @@ The original project creators built 3D-printed parts to hold various parts or to
 
 Once you're logged into your balenaCloud account (remember: first ten devices are free and fully-featured), click the button below to automagically deploy the project to your account.
 
-[![Deploy with balena](https://camo.githubusercontent.com/610358f5d0de9bfe856b58d4e22dcc64db6383cc/68747470733a2f2f62616c656e612e696f2f6465706c6f792e706e67)](https://dashboard.balena-cloud.com/deploy)
+[![Deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy)
 
 ![](https://www.balena.io/blog/content/images/2020/07/deploy-default.png)
 
@@ -145,5 +148,7 @@ Once you test a few things here and there, try other kinds of plants, adjust the
 Why automate the watering of one plant when you could grow and nurture many more? What if you upgrade the pump? What if you add LED grow lights?? The possibilities are endless.
 
 ### Additional resources
+
+Check out our [official project guide](https://www.balena.io/blog/keep-your-plant-friends-happy-and-healthy-with-automated-watering-balenaplant/) on the balena blog.
 
 Check out this [livestream build](https://www.youtube.com/watch?v=r0ZR6COwdRo) (uses the balenaCLI method) or [visit our Forums](https://forums.balena.io/t/building-a-smart-houseplant-monitor-and-waterer/9170/21) for more information.
