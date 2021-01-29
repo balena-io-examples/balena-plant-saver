@@ -1,6 +1,6 @@
 # Balena Plant Saver
 
-![](/img/balenaPlant_hero)
+![](/img/hero.png)
 
 This is a Raspberry Pi balenaCloud starter project to help you water your precious plants. See temperature, humidity, and soil moisture levels. Set watering thresholds and timings to automate the watering of your plants.
 
@@ -36,7 +36,7 @@ This wiring diagram covers a build that uses the Pimoroni Automation HAT. Wiring
 
 ### Solder on DHT22 sensor
 
-![](/img/dht22.png)
+![](/img/dht-22.png)
 
 Connect the power and ground to the 3.3V pins. Connect the data pin to the `SCLK` pin, which is GPIO pin 11 (you'll see this referenced in the plant watering code).
 
