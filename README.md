@@ -14,7 +14,7 @@ Access your plant's dashboard from anywhere in the world using balenaCloud. Add 
 This project uses the Pimoroni Automation HAT to make things a bit more user-friendly. Here's the list of materials:
 
 * Raspberry Pi ZeroWH/3B/4 (that's what we've tested so far)
-* A 32GB+ SD car
+* A 32GB+ SD card
 * Pimoroni Automation HAT (a discontinued Automation pHAT should work as well)
 * DHT22 temperature and humidity sensor
 * Capacitive soil moisture sensor
