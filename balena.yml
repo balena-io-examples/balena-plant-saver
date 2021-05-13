@@ -19,9 +19,8 @@ assets:
   logo:
     type: blob.asset
     data:
-      url: >-
-        https://raw.githubusercontent.com/balenalabs-incubator/balena-plant-saver/master/logo.png
-data:
+      url: 'https://raw.githubusercontent.com/balenalabs-incubator/balena-plant-saver/master/logo.png'
+      data:
   applicationEnvironmentVariables:
     - target_soil_moisture: 60
     - target_soil_threshold: 15
