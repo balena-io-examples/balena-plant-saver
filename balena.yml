@@ -20,7 +20,7 @@ assets:
     type: blob.asset
     data:
       url: 'https://raw.githubusercontent.com/balenalabs-incubator/balena-plant-saver/master/logo.png'
-data:
+        data:
   applicationEnvironmentVariables:
     - target_soil_moisture: 60
     - target_soil_threshold: 15
@@ -31,4 +31,4 @@ data:
     - raspberrypi3
     - raspberrypi4-64
     - fincm3
-version: 0.2.4
+version: 0.2.5
