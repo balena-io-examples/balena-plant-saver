@@ -1,23 +1,32 @@
-name: "balenaPlant"
-description: "Use a Raspberry Pi, temperature, humidity, and moisture sensor to automatically water your plant."
+name: balenaPlant
+description: >-
+  Use a Raspberry Pi, temperature, humidity, and moisture sensor to automatically water your plants.
+fleetcta: Save your plants!
+post-provisioning: >-
+  ## Usage instructions
+
+  This project has a default setting of 45-60% soil moisture content, and a pump 
+  delay of checking every ten minutes which typically helps many common household 
+  plants. If you need to take care of a plant a special, specific way, please 
+  consider forking this project.
 type: "sw.application"
 assets:
   repository:
-    type: "blob.asset"
+    type: blob.asset
     data:
-      url: "https://github.com/balenalabs-incubator/balena-plant-saver"
+      url: 'https://github.com/balenalabs-incubator/balena-plant-saver'
   logo:
-    type: "blob.asset"
+    type: blob.asset
     data:
-      url: "https://raw.githubusercontent.com/balenalabs-incubator/balena-plant-saver/master/logo.png"
+      url: 'https://raw.githubusercontent.com/balenalabs-incubator/balena-plant-saver/master/logo.png'
 data:
   applicationEnvironmentVariables:
     - target_soil_moisture: 60
     - target_soil_threshold: 15
     - pump_delay: 15
-  defaultDeviceType: "raspberrypi4-64"
+  defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
-    - "raspberry-pi"
-    - "raspberrypi3"
-    - "raspberrypi4-64"
-    - "fincm3"
+    - raspberry-pi
+    - raspberrypi3
+    - raspberrypi4-64
+    - fincm3
