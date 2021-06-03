@@ -2,7 +2,6 @@ name: balenaPlant
 description: >-
   Use a Raspberry Pi, temperature, humidity, and moisture sensor to
   automatically water your plants.
-fleetcta: Save your plants
 post-provisioning: >-
   ## Usage instructions
 
@@ -32,4 +31,4 @@ data:
     - raspberrypi3
     - raspberrypi4-64
     - fincm3
-version: 0.2.6
+version: 0.2.7
