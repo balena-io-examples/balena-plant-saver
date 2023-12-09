@@ -5,14 +5,16 @@ RUN install_packages python3-smbus wget unzip
 RUN pip3 install --upgrade \
   pip \
   setuptools \
-  wheel\
+  wheel \
   smbus2 \
   RPi.GPIO \
-  balena-sdk \ 
+  balena-sdk \
   automationhat \
   paho-mqtt
 
-RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org adafruit-circuitpython-dht 
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org adafruit-circuitpython-dht
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org ads1015
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org i2cdevice
 
 COPY . /usr/src
 
