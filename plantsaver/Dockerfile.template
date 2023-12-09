@@ -12,7 +12,7 @@ RUN pip3 install --upgrade \
   automationhat \
   paho-mqtt
 
-RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org Adafruit_DHT==1.4.0
+RUN python3 -m pip install --no-cache-dir --trusted-host pypi.python.org Adafruit_DHT==1.4.0 --install-option="--force-pi2"
 
 COPY . /usr/src
 
