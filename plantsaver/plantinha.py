@@ -1,7 +1,7 @@
 import time
 import os
 import automationhat
-import Adafruit_DHT
+import adafruit_dht  # Change here
 from balena import Balena
 import json
 import paho.mqtt.client as mqtt
@@ -13,7 +13,7 @@ class PlantSaver:
         self.client                 = mqtt.Client("1")
 
         # Variables
-        self.dht_sensor             = Adafruit_DHT.DHT22
+        self.dht_sensor             = adafruit_dht.DHT22  # Change here
         self.dht_pin                = int(self.set_variable("dht_pin", 11))
         self.max_value              = float(self.set_variable("max_value", 2.77)) 
         self.min_value              = float(self.set_variable("min_value", 1.46)) 
@@ -32,6 +32,8 @@ class PlantSaver:
         # set up an instance of the SDK - used for updating device tags
         self.balena = Balena()
         self.balena.auth.login_with_token(os.environ['BALENA_API_KEY'])
+
+    # ... (rest of the code remains unchanged)
 
     # Checks if there is an environment variable set, otherwise save the default value
     def set_variable(self, name, default_value):
