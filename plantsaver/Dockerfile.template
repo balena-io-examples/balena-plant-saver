@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7-buster-build
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:latest-bookworm-build
 
 RUN install_packages python3-smbus wget unzip
 
