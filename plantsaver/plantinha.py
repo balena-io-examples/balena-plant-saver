@@ -1,7 +1,8 @@
 import time
 import os
 import automationhat
-import Adafruit_DHT
+import adafruit_dht
+import board
 from balena import Balena
 import json
 import paho.mqtt.client as mqtt
@@ -13,8 +14,7 @@ class PlantSaver:
         self.client                 = mqtt.Client("1")
 
         # Variables
-        self.dht_sensor             = Adafruit_DHT.DHT22
-        self.dht_pin                = int(self.set_variable("dht_pin", 11))
+        self.dht_sensor             = adafruit_dht.DHT22(board.D11)
         self.max_value              = float(self.set_variable("max_value", 2.77)) 
         self.min_value              = float(self.set_variable("min_value", 1.46)) 
         self.target_soil_moisture   = int(self.set_variable("target_soil_moisture", 60))
@@ -45,7 +45,8 @@ class PlantSaver:
         self.moisture_level= 100-(automationhat.analog.one.read()-self.min_value)/((self.max_value-self.min_value)/100)
 
     def read_temperature_humidity(self):
-        self.humidity, self.temperature = Adafruit_DHT.read_retry(self.dht_sensor, self.dht_pin)
+        self.humidity = self.dht_sensor.humidity
+        self.temperature = self.dht_sensor.temperature 
     
     def update_sensors(self):
         self.read_moisture()
