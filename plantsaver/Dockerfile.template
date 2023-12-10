@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7.3-buster-build
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.7.16-buster-build
 
 RUN install_packages python3-smbus wget unzip libgpiod2
 
